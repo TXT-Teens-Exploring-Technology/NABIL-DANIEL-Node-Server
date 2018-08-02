@@ -20,18 +20,16 @@ app.use(express.static('pdfs'))
 var docx;
 var pdf;
 
-
-// Mongoose
 app.post('/convertDocx-Pdf', (req, res)=>{
     docx = req.body.path;
     pdf = docx.replace('.docx','.pdf');
     pdfName = pdf.replace('./', '');
-    
+
 
     console.log("works");
     console.log(docx);
     docxConverter(docx, "./pdfs/"+ pdf,function(err,result){
-        
+
         if(err){
           console.log(err);
           res.send(err);
@@ -42,12 +40,7 @@ app.post('/convertDocx-Pdf', (req, res)=>{
       });
 });
 
-app.get('/downloadPdf', function (req, res) {
-    //res.header('Content-Type', 'text/html');
-    res.header('Content-disposition', 'inline; filename=' + 'dmeo.pdf');
-    res.header('Content-type', 'application/pdf');
-    request('http://localhost:3000/essay.pdf').pipe(res);
-});
+
 
 //Sets Port
 const port = '3000';
